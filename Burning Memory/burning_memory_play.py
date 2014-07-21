@@ -5,7 +5,7 @@ from pygame.locals import *
 FPS = 30 # frames per second, the general speed of the program
 WINDOWWIDTH = 700 # size of window's width in pixels
 WINDOWHEIGHT = 540 # size of windows' height in pixels
-REVEALSPEED = 4 # speed boxes' sliding reveals and covers
+REVEALSPEED = 3 # speed boxes' sliding reveals and covers
 BOXSIZE = 45 # size of box height & width in pixels
 GAPSIZE = 15 # size of gap between boxes in pixels
 BOARDWIDTH = 10 # number of columns of icons
@@ -54,13 +54,8 @@ def main():
     
     mousex = 0 # used to store x coordinate of mouse event
     mousey = 0 # used to store y coordinate of mouse event
-    pygame.display.set_caption('Memory Game')
+    pygame.display.set_caption('Burning Memory!')
 
-    fontObj = pygame.font.Font('freesansbold.ttf', 20)
-    textSurfaceObj = fontObj.render('Time', True, RED, ORANGE)
-    textRectObj = textSurfaceObj.get_rect()
-    textRectObj.center = (100, 30)
-    
     mainBoard = getRandomizedBoard()
     revealedBoxes = generateRevealedBoxesData(False)
 
@@ -71,7 +66,7 @@ def main():
 
     while True: # main game loop
         mouseClicked = False
-
+        
         DISPLAYSURF.fill(BGCOLOR) # drawing the window        
         drawBoard(mainBoard, revealedBoxes)
         for event in pygame.event.get(): # event handling loop
@@ -274,6 +269,12 @@ def startGameAnimation(board):
     for boxGroup in boxGroups:
         revealBoxesAnimation(board, boxGroup)
         coverBoxesAnimation(board, boxGroup)
+    
+    soundObj = pygame.mixer.Sound('beeps.wav')
+    soundObj.play()
+    import time
+    time.sleep(1) # wait and let the sound play for 1 second
+    soundObj.stop()
 
 
 def gameWonAnimation(board):
