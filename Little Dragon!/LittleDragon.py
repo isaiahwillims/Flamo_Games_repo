@@ -415,7 +415,7 @@ cursor = pygame.cursors.compile(CURSOR)
 pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 
 #Game variables
-levelNumber = 3
+levelNumber = 1
 
 #Screen
 screen = pygame.display.set_mode((800,600))

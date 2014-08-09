@@ -1,3 +1,4 @@
+#version 1.0
 import time
 import random, pygame, sys
 from pygame.locals import *
