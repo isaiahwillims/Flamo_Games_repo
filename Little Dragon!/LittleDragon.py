@@ -39,14 +39,6 @@ def makeTextureBG(texture,size):
                                              (0,size[1]))
                                              ,texture,0,0)
     return texSurf
-
-#def behavecheck(distance, behavior):
-#    if distance <= 100:
-#        behavior = 1
-#    else:
-#        behavior = 0
-#    return behavior
-
     
 #def Win(entot, LevelNumber):
 #    if entot == 1
@@ -212,6 +204,11 @@ class Mob(pygame.sprite.Sprite):
     def update(self):
         #Globals
         global restart
+        
+        if distance(self.pos,player.pos) <= 100:
+            self.behavior = 1
+        else:
+            self.behavior = 0
         
         if self.behavior == 1:
             #AI
