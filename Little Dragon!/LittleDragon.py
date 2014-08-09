@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v0.2.0 Beta"
+VERSION_NUMBER = "v0.2.6 Beta"
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
@@ -7,7 +7,7 @@ from pygame.locals import *
 
 #Constants
 PGNAME = "Little Dragon"
-BGCOLOR = (255,255,255)
+BGCOLOR = (255,0,255)
 FPSCOLOR = (64,64,64)
 FPS_MAX = 90
 DATA_DIR = "Data"
@@ -66,10 +66,10 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.rect.Rect(self.pos[0],self.pos[1]+12,16,4)
 
         #Inventory
-        self.inventory = [Item(spriteItemWoodClaw,15,30,"Wood Claw"),
-                          Item(spriteItemStoneSword,30,90,"Stone Sword"),
-                          Item(spriteItemIronSword,45,230,"Iron Sword"),
-                          Item(spriteItemDiamondSword,50,500,"Diamond Sword"),
+        self.inventory = [Item(spriteItemClaw,15,30,"Claws"),
+                          Item(spriteItemTail,30,90,"Tail"),
+                          Item(spriteItemHorns,45,230,"Horns"),
+                          Item(spriteItemFangs,50,500,"Fangs"),
                           0,
                           0,
                           0,
@@ -374,10 +374,10 @@ spriteBGW = makeTextureBG(pygame.image.load("Graphics/BGW.png"),screen.get_size(
 spriteBGP = pygame.image.load("Graphics/BGP.png")
 spriteFrame = pygame.image.load("Graphics/GItemFrame.png")
 spriteFrameSelected = pygame.image.load("Graphics/GItemFrameSelected.png")
-spriteItemWoodClaw = pygame.image.load("Graphics/IWoodClaw.jpg")
-spriteItemStoneSword = pygame.image.load("Graphics/IStoneSword.png")
-spriteItemIronSword = pygame.image.load("Graphics/IIronSword.png")
-spriteItemDiamondSword = pygame.image.load("Graphics/IDiamondSword.png")
+spriteItemClaw = pygame.image.load("Graphics/IClaw.jpg")
+spriteItemTail = pygame.image.load("Graphics/ITail.png")
+spriteItemHorns = pygame.image.load("Graphics/IHorns.png")
+spriteItemFangs = pygame.image.load("Graphics/IFangs.png")
 
 #Cursor
 CURSOR = (               #sized 24x24
@@ -412,7 +412,7 @@ cursor = pygame.cursors.compile(CURSOR)
 pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 
 #Game variables
-levelNumber = 1
+levelNumber = 3
 
 #Screen
 screen = pygame.display.set_mode((800,600))
