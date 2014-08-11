@@ -51,18 +51,25 @@ def main():
     global FPSCLOCK, DISPLAYSURF
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
+    pygame.display.set_icon(pygame.image.load("BMICON.jpg"))
     DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
     
     mousex = 0 # used to store x coordinate of mouse event
     mousey = 0 # used to store y coordinate of mouse event
-    pygame.display.set_caption('Burning Memory!')
+    pygame.display.set_caption('Burning Memory! v-2.0')
 
     mainBoard = getRandomizedBoard()
     revealedBoxes = generateRevealedBoxesData(False)
 
     firstSelection = None # stores the (x, y) of the first box clicked.
 
+
+    DISPLAYSURF.blit(pygame.transform.scale(pygame.image.load("FlamoLogo.jpg"),(540,370)),(0,0))
+    pygame.display.update()
+    time.sleep(3)
+
     DISPLAYSURF.fill(BGCOLOR)
+    
     startGameAnimation(mainBoard)
 
     while True: # main game loop
