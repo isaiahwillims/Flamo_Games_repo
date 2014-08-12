@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v0.2.6 Beta"
+VERSION_NUMBER = "v0.3 Beta"
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
@@ -116,16 +116,11 @@ class Player(pygame.sprite.Sprite):
             #If colliding, go back
             if pygame.sprite.spritecollide(self,walls,False): 
                 self.pos[0] -= self.velocity[0]
+            
                 
         else:
             restart = 1
 
-        #Touching mobs
-        collisions = pygame.sprite.spritecollide(self,mobs,0)
-
-        for mob in collisions:
-            if random.randint(0,100) < 40:
-                self.hp -= mob.damage
 
         #Check health
         if self.hp <= 0:
@@ -185,7 +180,6 @@ class Mob(pygame.sprite.Sprite):
         self.life = 0
 
         #Behavior - chase player or not
-#        behavior = behavecheck(distance(self.pos,player.pos), behavior)
         self.behavior = behavior
 
         #How fast the mob decelerates
@@ -270,6 +264,9 @@ class Mob(pygame.sprite.Sprite):
 
             else:
                 self.hp -= 5
+ 
+        if distance(self.pos,player.pos) <= 10:
+            player.hp -= self.damage
  
         #Check health
         if self.hp <= 0:
@@ -412,7 +409,7 @@ cursor = pygame.cursors.compile(CURSOR)
 pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 
 #Game variables
-levelNumber = 3
+levelNumber = 1
 
 #Screen
 screen = pygame.display.set_mode((800,600))
@@ -526,6 +523,10 @@ while True:
                 #Attacked
                 if event.unicode == " ":
                     attack = 1
+                    if len(mobs) == 0:
+                        levelNumber = levelNumber + 1
+                        restart = 1
+                
                     
         #Moved
         if pygame.mouse.get_pressed()[0]:
