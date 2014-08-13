@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v0.3 Beta"
+VERSION_NUMBER = "v-1.0 Beta"
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
