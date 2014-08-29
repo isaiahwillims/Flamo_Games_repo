@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v-1.0 Beta"
+VERSION_NUMBER = "v-1.1 Beta"
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
@@ -66,14 +66,14 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.rect.Rect(self.pos[0],self.pos[1]+12,16,4)
 
         #Inventory
-        self.inventory = [Item(spriteItemClaw,15,30,"Claws"),
-                          Item(spriteItemTail,30,90,"Tail"),
-                          Item(spriteItemHorns,45,230,"Horns"),
-                          Item(spriteItemFangs,50,500,"Fangs"),
-                          0,
-                          0,
-                          0,
-                          0]
+        self.inventory = [Item(spriteItemClaw,15,35,"Claws"),
+                        Item(spriteItemTail,15,23,"Tail"),
+                        Item(spriteItemHorns,15,25,"Horns"),
+                        Item(spriteItemFangs,15,27,"Fangs"),
+                        0,
+                        0,
+                        0,
+                        0]
         self.selected = 0
 
         #Life
@@ -525,6 +525,8 @@ while True:
                     attack = 1
                     if len(mobs) == 0:
                         levelNumber = levelNumber + 1
+                        restart = 1
+                    if player.inventory == [0, 0, 0, 0, 0, 0, 0, 0]:
                         restart = 1
                 
                     
