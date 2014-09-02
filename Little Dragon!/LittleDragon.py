@@ -1,9 +1,11 @@
 #Important
-VERSION_NUMBER = "v-1.1 Beta"
+VERSION_NUMBER = "v-1.3 Beta"
+VICTORY = 8
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
 from pygame.locals import *
+
 
 #Constants
 PGNAME = "Little Dragon"
@@ -30,6 +32,7 @@ pygame.display.update()
 time.sleep(2)
 
 #Functions
+
 #Make a textured background
 def makeTextureBG(texture,size):
     texSurf = pygame.surface.Surface(size)
@@ -39,11 +42,6 @@ def makeTextureBG(texture,size):
                                              (0,size[1]))
                                              ,texture,0,0)
     return texSurf
-    
-#def Win(entot, LevelNumber):
-#    if entot == 1
-#        LevelNumber = LevelNumber + 1
-#    return LevelNumber
     
 #Distance formula
 def distance(pt1,pt2):
@@ -67,9 +65,9 @@ class Player(pygame.sprite.Sprite):
 
         #Inventory
         self.inventory = [Item(spriteItemClaw,15,35,"Claws"),
-                        Item(spriteItemTail,15,23,"Tail"),
-                        Item(spriteItemHorns,15,25,"Horns"),
-                        Item(spriteItemFangs,15,27,"Fangs"),
+                        Item(spriteItemTail,15,35,"Tail"),
+                        Item(spriteItemHorns,15,35,"Horns"),
+                        Item(spriteItemFangs,15,35,"Fangs"),
                         0,
                         0,
                         0,
@@ -78,10 +76,9 @@ class Player(pygame.sprite.Sprite):
 
         #Life
         self.life = 0
-
+        
         #Stats
         self.hp = 90
-
         #How fast the player decelerates
         self.velocityDecay = [2,2]
 
@@ -89,7 +86,8 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         #Globals
         global restart
-
+        global game_over
+        
         #Increase lifetime
         self.life += 1
         
@@ -124,8 +122,8 @@ class Player(pygame.sprite.Sprite):
 
         #Check health
         if self.hp <= 0:
-            restart = 1
-
+            game_over = 1
+        
         #Draw health
         scaledHp = self.hp/90*24
 
@@ -198,6 +196,7 @@ class Mob(pygame.sprite.Sprite):
     def update(self):
         #Globals
         global restart
+        global Score
         
         if distance(self.pos,player.pos) <= 100:
             self.behavior = 1
@@ -270,9 +269,8 @@ class Mob(pygame.sprite.Sprite):
  
         #Check health
         if self.hp <= 0:
+            Score = Score + 10
             self.kill()
-#            entot = mob.en()
-#            win
 
         #Draw health
         scaledHp = self.hp/self.maxHp*24
@@ -375,6 +373,7 @@ spriteItemClaw = pygame.image.load("Graphics/IClaw.jpg")
 spriteItemTail = pygame.image.load("Graphics/ITail.png")
 spriteItemHorns = pygame.image.load("Graphics/IHorns.png")
 spriteItemFangs = pygame.image.load("Graphics/IFangs.png")
+#gameover = Pygame.image.load("Graphics/gameover.png")
 
 #Cursor
 CURSOR = (               #sized 24x24
@@ -410,12 +409,13 @@ pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 
 #Game variables
 levelNumber = 1
+Score = 0
 
 #Screen
 screen = pygame.display.set_mode((800,600))
 
 #Add version Number
-spriteBGP.blit(font.render(str(VERSION_NUMBER),0,(192,192,192)),(300,200))
+spriteBGP.blit(font.render(str(VERSION_NUMBER),0,(200,200,200)),(300,200))
 
 #Blit BG
 screen.blit(spriteBGP,(0,0))
@@ -445,6 +445,8 @@ while True:
 
     #Set up variables
     restart = 0
+    game_over = 0
+    win = 0
 
     #Set up groups
     walls = pygame.sprite.Group()
@@ -523,12 +525,17 @@ while True:
                 #Attacked
                 if event.unicode == " ":
                     attack = 1
-                    if len(mobs) == 0:
-                        levelNumber = levelNumber + 1
-                        restart = 1
-                    if player.inventory == [0, 0, 0, 0, 0, 0, 0, 0]:
-                        restart = 1
-                
+                #Next Level/Win
+                if len(mobs) == 0 and levelNumber != VICTORY:
+                    levelNumber = levelNumber + 1
+                    Score = Score + 100
+                    restart = 1
+                if len(mobs) == 0 and levelNumber == VICTORY:
+                    Score = Score + 100
+                    win = 1
+                # Non death fail condition
+                if player.inventory == [0, 0, 0, 0, 0, 0, 0, 0]:
+                    game_over = 1
                     
         #Moved
         if pygame.mouse.get_pressed()[0]:
@@ -552,11 +559,34 @@ while True:
             player.velocity[1] = -2
         if pygame.key.get_pressed()[K_DOWN]:
             player.velocity[1] = 2
-       
+        
+        
+        #str
+        ScoreStr = "Your score is %r" % Score
+        
         #Restart
         if restart == 1:
             break
-
+        if game_over == 1:
+            screen.blit(pygame.transform.scale(pygame.image.load("Graphics/gameover.png"),(800,600)),(0,0))
+            screen.blit(font.render(str(ScoreStr),50,(0,0,200)),(200,325))
+#            screen.blit(font.render(str("HighScore!"),50,(200,0,0)),(170, 310)) #prepared for later version
+            pygame.display.update()
+            time.sleep(5)
+            levelNumber = 1
+            Score = 0
+            break
+            
+        #win
+        if win == 1:
+            screen.blit(pygame.transform.scale(pygame.image.load("Graphics/win.png"),(800,600)),(0,0))
+            screen.blit(font.render(str(ScoreStr),50,(0,0,200)),(200,325))
+            screen.blit(font.render(str("Will Continue From Lv 1 in 5"),50,(0,200,0)),(170, 300))
+            pygame.display.update()
+            time.sleep(5)
+            levelNumber = 1
+            break
+        
         #Update sprites
         tiles.update()
         walls.update()
