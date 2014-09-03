@@ -1,6 +1,6 @@
 #Important
-VERSION_NUMBER = "v-1.3 Beta"
-VICTORY = 8
+VERSION_NUMBER = "v-1.5 Beta"
+VICTORY = 10
 
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
@@ -410,9 +410,25 @@ pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 #Game variables
 levelNumber = 1
 Score = 0
+high_score = 0
+
+try:
+    f = open("high_score.txt", "r")
+    high_score = int(f.read() )
+    f.close()
+except:
+    high_score = 0
+
+Highstr = "High Score Is: %r" % high_score
+
+def newScore(Score, high_score):
+    if Score > high_score:
+        f = open("high_score.txt", "w")
+        f.write(str(Score))
+        f.close()
 
 #Screen
-screen = pygame.display.set_mode((800,600))
+Screen = pygame.display.set_mode((800,600))
 
 #Add version Number
 spriteBGP.blit(font.render(str(VERSION_NUMBER),0,(200,200,200)),(300,200))
@@ -531,7 +547,7 @@ while True:
                     Score = Score + 100
                     restart = 1
                 if len(mobs) == 0 and levelNumber == VICTORY:
-                    Score = Score + 100
+                    Score = Score + 200
                     win = 1
                 # Non death fail condition
                 if player.inventory == [0, 0, 0, 0, 0, 0, 0, 0]:
@@ -568,9 +584,10 @@ while True:
         if restart == 1:
             break
         if game_over == 1:
+            newScore(Score, high_score)
             screen.blit(pygame.transform.scale(pygame.image.load("Graphics/gameover.png"),(800,600)),(0,0))
             screen.blit(font.render(str(ScoreStr),50,(0,0,200)),(200,325))
-#            screen.blit(font.render(str("HighScore!"),50,(200,0,0)),(170, 310)) #prepared for later version
+            screen.blit(font.render(str(Highstr),50,(200,0,0)),(170, 310))
             pygame.display.update()
             time.sleep(5)
             levelNumber = 1
