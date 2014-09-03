@@ -64,10 +64,10 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.rect.Rect(self.pos[0],self.pos[1]+12,16,4)
 
         #Inventory
-        self.inventory = [Item(spriteItemClaw,15,35,"Claws"),
-                        Item(spriteItemTail,15,35,"Tail"),
-                        Item(spriteItemHorns,15,35,"Horns"),
-                        Item(spriteItemFangs,15,35,"Fangs"),
+        self.inventory = [Item(spriteItemClaw,15,47,"Claws"),
+                        Item(spriteItemTail,15,47,"Tail"),
+                        Item(spriteItemHorns,15,47,"Horns"),
+                        Item(spriteItemFangs,15,47,"Fangs"),
                         0,
                         0,
                         0,
