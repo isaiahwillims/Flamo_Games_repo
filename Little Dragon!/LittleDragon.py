@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v-1.6 Beta"
+VERSION_NUMBER = "v-1.7 Beta"
 VICTORY = 10
 
 #Imports
@@ -379,26 +379,26 @@ spriteItemFangs = pygame.image.load("Graphics/IFangs.png")
 CURSOR = (               #sized 24x24
   "           XX           ",
   "           XX           ",
-  "           XX           ",
-  "           XX           ",
-  "         ......         ",
-  "       ..oooooo..       ",
-  "      .oo  XX  oo.      ",
-  "     .o    XX    o.     ",
-  "     .o    XX    o.     ",
-  "    .o     XX     o.    ",
-  "    .o     XX     o.    ",
+  "o          XX          o",
+  "XXX        XX        XXX",
+  " XXX     ......     XXX ",
+  "  XXX  ..oooooo..  XXX  ",
+  "   XXX.oo  XX  oo.XXX   ",
+  "     .oXXX XX XXXo.     ",
+  "     .oXXXXXXXXXXo.     ",
+  "    .o    XXXX    o.    ",
+  "    .o    XXXX    o.    ",
   "XXXX.oXXXXXXXXXXXXo.XXXX",
   "XXXX.oXXXXXXXXXXXXo.XXXX",
-  "    .o     XX     o.    ",
-  "    .o     XX     o.    ",
-  "     .o    XX    o.     ",
-  "     .o    XX    o.     ",
-  "      .oo  XX  oo.      ",
-  "       ..oooooo..       ",
-  "         ......         ",
-  "           XX           ",
-  "           XX           ",
+  "    .o    XXXX    o.    ",
+  "    .o    XXXX    o.    ",
+  "     .oXXXXXXXXXXo.     ",
+  "     .oXXX XX XXXo.     ",
+  "   XXX.oo  XX  oo.XXX   ",
+  "  XXX  ..oooooo..  XXX  ",
+  " XXX     ......     XXX ",
+  "XXX        XX        XXX",
+  "o          XX          o",
   "           XX           ",
   "           XX           ",
 )
@@ -413,20 +413,24 @@ Score = 0
 high_score = 0
 
 try:
-    f = open("high_score.txt", "r")
+    f = open("high_score.txt", "r+")
     high_score = int(f.read() )
-    f.close()
 except:
     high_score = 0
 
 Highstr = "High Score Is: %r" % high_score
 
-def newScore(Score, high_score):
+def newScore(Score, high_score, f):
     if Score > high_score:
-        f = open("high_score.txt", "w")
-        f.write(str(Score))
-        f.close()
-
+        newscore = Score
+        f = open("high_score.txt", "r+")
+        f.truncate()
+        f.write(str(newscore))
+        high_score = newscore
+    else:
+        newscore = high_score
+    return high_score, newscore
+    
 #Screen
 Screen = pygame.display.set_mode((800,600))
 
@@ -584,7 +588,7 @@ while True:
         if restart == 1:
             break
         if game_over == 1:
-            newScore(Score, high_score)
+            newScore(Score, high_score, f)
             screen.blit(pygame.transform.scale(pygame.image.load("Graphics/gameover.png"),(800,600)),(0,0))
             screen.blit(font.render(str(ScoreStr),50,(0,0,200)),(200,325))
             screen.blit(font.render(str(Highstr),50,(200,0,0)),(170, 310))
