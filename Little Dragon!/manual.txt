@@ -1,0 +1,41 @@
+Help Scales the Dragon defeet shadows and save his home.
+
+Earn points to try to get a high score!
+
+---------
+
+-1 enemy = 10 points
+-clear level = 100 points 
+-clear the final level = 100 point bonus in adition to your 100 for level clear for a total of 200!
+
+-when you clear a level press any button to continue!
+ -If you clear the final level it will tell you your curent score then have you play again from level 1 whith the same score to get bonus points!
+  -when you get a game over your high score (if you got one) will be saved! to update your high score on the game over screen you may have to reload the game!
+
+---------
+
+you loose when!!!
+
+- you get hit when your shield is down
+-run out of tactics!
+
+---------
+
+Atacking and being attacked!
+
+-Space bar attacks with selected tactic. this will take down the enemy's shield
+ -strike when the enemy's shield (the red bar above its head) is down to kill it
+  -you can attack from a short distance but dont be to far or your attack wont hit, and dont be to close... you will die!
+   -The four tactics are: 
+    -Claws
+    -Tail
+    -Horns
+    -Fangs
+     -[a] and [s] keys chainge tactics
+      -when you defeet to many enemies with the same tactic it becomes used up!
+       -clearing a level restors you used tactics and recharges the remaining ones. It also re-energises your shield!
+
+-If an enemy gets to close you get hit!
+ -If it stays close for to long you get hit again!
+  -the first time you are hit your shield (red bar above your head) is taken down
+   -the next time you get hit you die and restart from level 1 with a score of zero!
