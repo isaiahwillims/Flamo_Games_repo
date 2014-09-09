@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v-1.7 Beta"
+VERSION_NUMBER = "v-1.7.1 Beta"
 VICTORY = 10
 
 #Imports
