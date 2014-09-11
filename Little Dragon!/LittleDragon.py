@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v-1.7.1 Beta"
+VERSION_NUMBER = "v-1.7.2 Beta"
 VICTORY = 10
 
 #Imports
@@ -12,7 +12,7 @@ PGNAME = "Little Dragon"
 BGCOLOR = (255,0,255)
 FPSCOLOR = (64,64,64)
 FPS_MAX = 90
-DATA_DIR = "Data"
+DATA_DIR = "data"
 BLOCKSIZE = 16
 
 #Inits
@@ -22,10 +22,10 @@ clock = pygame.time.Clock()
 #Screen
 screen = pygame.display.set_mode((540,370))
 pygame.display.set_caption(PGNAME)
-pygame.display.set_icon(pygame.image.load("Data/Graphics/EIcon.png"))
+pygame.display.set_icon(pygame.image.load("data/Graphics/EIcon.png"))
 screen.fill(BGCOLOR)
 
-screen.blit(pygame.transform.scale(pygame.image.load("Data/Graphics/FlamoLogo.jpg"),(540,370)),(0,0))
+screen.blit(pygame.transform.scale(pygame.image.load("data/Graphics/FlamoLogo.jpg"),(540,370)),(0,0))
 
 pygame.display.update()
 
@@ -348,7 +348,7 @@ class Item(object):
         self.life = life
 
 #Load Resources
-#cd Data
+#cd data
 os.chdir(DATA_DIR)
 
 font = pygame.font.Font("Other/PressStart2P.ttf",20)
