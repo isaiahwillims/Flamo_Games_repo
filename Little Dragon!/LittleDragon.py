@@ -1,5 +1,5 @@
 #Important
-VERSION_NUMBER = "v-1.7.2 Beta"
+VERSION_NUMBER = "v-1.9 Beta"
 VICTORY = 10
 
 #Imports
@@ -80,7 +80,7 @@ class Player(pygame.sprite.Sprite):
         #Stats
         self.hp = 90
         #How fast the player decelerates
-        self.velocityDecay = [2,2]
+        self.velocityDecay = [1,1]
 
     #Update
     def update(self):
@@ -197,6 +197,7 @@ class Mob(pygame.sprite.Sprite):
         #Globals
         global restart
         global Score
+        global bonus
         
         if distance(self.pos,player.pos) <= 100:
             self.behavior = 1
@@ -266,6 +267,7 @@ class Mob(pygame.sprite.Sprite):
  
         if distance(self.pos,player.pos) <= 10:
             player.hp -= self.damage
+            bonus = 2
  
         #Check health
         if self.hp <= 0:
@@ -411,6 +413,7 @@ pygame.mouse.set_cursor((24,24),(12,12),cursor[0],cursor[1])
 levelNumber = 1
 Score = 0
 high_score = 0
+bonus = 1
 
 try:
     f = open("high_score.txt", "r+")
@@ -549,10 +552,22 @@ while True:
                 if len(mobs) == 0 and levelNumber != VICTORY:
                     levelNumber = levelNumber + 1
                     Score = Score + 100
-                    restart = 1
+                    if bonus == 1:
+                        Score = Score +25
+                        bonus = 1
+                        restart = 1
+                    else:
+                        bonus = 1
+                        restart = 1
                 if len(mobs) == 0 and levelNumber == VICTORY:
                     Score = Score + 200
-                    win = 1
+                    if bonus == 1:
+                        Score = Score + 50
+                        bonus = 1
+                        win = 1
+                    else:
+                        bonus = 1
+                        win = 1
                 # Non death fail condition
                 if player.inventory == [0, 0, 0, 0, 0, 0, 0, 0]:
                     game_over = 1
