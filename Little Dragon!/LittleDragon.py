@@ -1,11 +1,5 @@
-#Copyright 2014: FlamoEntertainment
-# The Flamo Logo, Little Dragon, and Scales the Dragon
-#  are property of flamo Entertainment 
-#However I wish to help new programmers
-# so my code is free to be modified
-
 #Important
-VERSION_NUMBER = "v-1.9.1 Beta"
+VERSION_NUMBER = "v-1.9 Beta"
 VICTORY = 10
 
 #Imports
@@ -74,7 +68,6 @@ class Player(pygame.sprite.Sprite):
                         Item(spriteItemTail,15,47,"Tail"),
                         Item(spriteItemHorns,15,47,"Horns"),
                         Item(spriteItemFangs,15,47,"Fangs"),
-#                        Item(spriteItemFireball,0, 10,"Fireball"),
                         0,
                         0,
                         0,
@@ -87,7 +80,7 @@ class Player(pygame.sprite.Sprite):
         #Stats
         self.hp = 90
         #How fast the player decelerates
-        self.velocityDecay = [0.3,0.3]
+        self.velocityDecay = [1,1]
 
     #Update
     def update(self):
@@ -355,30 +348,6 @@ class Item(object):
         #Stats
         self.damage = damage
         self.life = life
-        
-###class Fireball(pygame.sprite.Sprite):
-###    def __init__(self,damage,life):
-###        # Call the parent class (Sprite) constructor
-###        pygame.sprite.Sprite.__init__(self) 
-###
-###        self.image = pygame.Surface([4, 10])
-###        self.image.fill(200, 120, 0)
-###
-###        self.rect = self.image.get_rect()
-###        self.damage = 50
-###        
-###    def update(self):
-###        # Move the bullet.
-###        if player.image == img1:
-###            self.rect.x -= 5
-###        if player.image == img2:
-###            self.rect.x += 5
-###        if player.image == img3:
-###            self.rect.y -= 5
-###        if player.image == img4:
-###            self.rect.y += 5
-###                
-
 
 #Load Resources
 #cd data
@@ -406,13 +375,6 @@ spriteItemClaw = pygame.image.load("Graphics/IClaw.jpg")
 spriteItemTail = pygame.image.load("Graphics/ITail.png")
 spriteItemHorns = pygame.image.load("Graphics/IHorns.png")
 spriteItemFangs = pygame.image.load("Graphics/IFangs.png")
-spriteItemFireball = pygame.image.load("Graphics/IFireball.png")
-
-###img1 = spritePlayerL
-###img2 = spritePlayerR
-###img3 = spritePlayerU
-###img4 = spritePlayerD
-
 #gameover = Pygame.image.load("Graphics/gameover.png")
 
 #Cursor
@@ -513,7 +475,6 @@ while True:
     walls = pygame.sprite.Group()
     tiles = pygame.sprite.Group()
     mobs = pygame.sprite.Group()
-###    bullets = pygame.sprite.Group()
 
     #Load level
     limage = pygame.image.load("Levels/"+str(levelNumber)+".png")
@@ -587,8 +548,6 @@ while True:
                 #Attacked
                 if event.unicode == " ":
                     attack = 1
-###                    if attack == 1 and player.inventory[player.selected] == "Fireball":
-###                        bullets.add(Fireball)
                 #Next Level/Win
                 if len(mobs) == 0 and levelNumber != VICTORY:
                     levelNumber = levelNumber + 1

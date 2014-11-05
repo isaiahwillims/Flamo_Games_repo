@@ -1,5 +1,3 @@
-#Burning Memory(Name) and The Flamo Logo are trademarks of Flamo Entertainment
-# the actual code is free for all to copy and/or modify
 #version 1.0
 import time
 import random, pygame, sys
