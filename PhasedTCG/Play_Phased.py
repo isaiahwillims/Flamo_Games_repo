@@ -4,7 +4,7 @@ VERSION_NUMBER = "v-0.0.1 Beta"
 #Imports
 import pygame,sys,os,math,time,pygame.gfxdraw,random
 from pygame.locals import *
-
+import Card_Dir
 
 #Constants
 PGNAME = "Phased Between Realms"
