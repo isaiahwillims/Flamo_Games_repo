@@ -2,9 +2,8 @@
 VERSION_NUMBER = "v-0.0.1 Beta"
 
 #Imports
-import pygame,sys,os,math,time,pygame.gfxdraw,random
+import pygame,sys,os,math,time,pygame.gfxdraw,random, Card_Dir
 from pygame.locals import *
-import Card_Dir
 
 #Constants
 PGNAME = "Phased Between Realms"
@@ -29,6 +28,84 @@ pygame.display.update()
 
 time.sleep(2)
 
+#Gameplay Functions and objects
+
+def shufle_deck(my_deck):
+    my_deck = random.shuffle(my_deck)
+    return my_deck
+    
+def play_first(x):
+    players = range(1, (x+1))
+    play1 = random.choice(players)
+    return play1
+
+def draw_hand(my_deck):
+    hand = my_deck[:7]
+    del my_deck[:7]
+    return hand, my_deck 
+
+#def gameplay(my_deck):
+#    shufle_deck(my_deck)
+#    handsim = draw_hand(my_deck)
+#    return handsim
+    
+#def play_card(hand, b_field, turn='y'):
+#    while turn == 'y': 
+#        card = raw_input('Play Card ')
+#        if card not in hand:
+#            print "Error, try again!"
+#            return play_card(hand, b_field)
+#        b_field.append(card)
+#        hand.remove(card)
+#        turn = raw_input('Play again? (y, n)')
+#    return card, hand, b_field
+    
+class player():
+    global Status, hp, Hand, Deck, Discard
+    
+    Status = "in game"
+    Hp = 1000
+    Hand = [0,0,0,0,0,0]
+    Deck = []
+    Discard = []
+    
+    def update(self):
+        if self.hp < 1:
+            Status = "loose"
+    
+    def loose(Status):
+        if Status == "loose":
+            pass
+    
+    def win(Status):
+        if Status == "win":
+            pass
+    
+    pass
+
+class AIplayer():
+    global Status, hp, Hand, Deck, Discard
+    
+    Status = "in game"
+    Hp = 1000
+    Hand = [0,0,0,0,0,0]
+    Deck = []
+    Discard = []
+    
+    def update(self):
+        if self.hp < 1:
+            Status = "loose"
+    
+    def loose(Status):
+        if Status == "loose":
+            pass
+    
+    def win(Status):
+        if Status == "win":
+            pass
+    
+    pass
+    
 #Load Resources
 #cd data
 os.chdir(DATA_DIR)
@@ -49,8 +126,8 @@ CURSOR = (               #sized 24x24
   "     .o   XXXXXXXo.     ",
   "    .o    XXXX    o.    ",
   "    .o    XXXX    o.    ",
-  "   X.oXXXXXXXXXXXXo.X   ",
-  "   X.oXXXXXXXXXXXXo.X   ",
+  "  oX.oXXXXXXXXXXXXo.X   ",
+  "   X.oXXXXXXXXXXXXo.Xo  ",
   "    .o    XXXX    o.    ",
   "    .o    XXXX    o.    ",
   "     .oXXXXXXX   o.     ",
